@@ -95,3 +95,47 @@ init_session_state()
 configure_page()
 center_app()
 selected_model, uploaded_file, user_api_key = handle_sidebar()
+
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_community.document_loaders import TextLoader, PyPDFLoader
+
+
+def handle_document_processing(uploaded_file=""):
+    if st.button("🚀 Process Document"):
+        if not uploaded_file:
+            st.error("Please upload a document first!")
+            return
+
+        with tempfile.NamedTemporaryFile(
+            delete=False, suffix=f".{uploaded_file.name.split('.')[-1]}"
+        ) as tmp_file:
+            tmp_file.write(uploaded_file.getvalue())
+            tmp_file_path = tmp_file.name
+
+        if uploaded_file.name.endswith(".pdf"):
+            loader = PyPDFLoader(tmp_file_path)
+        else:
+            loader = TextLoader(tmp_file_path)
+
+        documents = loader.load()
+
+        splitter = RecursiveCharacterTextSplitter(
+            chunk_size=CHUNK_SIZE,
+            chunk_overlap=CHUNK_OVERLAP,
+        )
+        chunks = splitter.split_documents(documents)
+
+        embeddings = GoogleGenerativeAIEmbeddings(model=EMBEDDING_MODEL)
+        vector_store = FAISS.from_documents(chunks, embeddings)
+
+        st.session_state["retriever"] = vector_store.as_retriever(
+            search_type="similarity", search_kwargs={"k": RETRIEVER_K}
+        )
+
+        st.success("Document processed successfully!")
+
+
+if uploaded_file:
+    handle_document_processing(uploaded_file)
