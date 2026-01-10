@@ -7,7 +7,7 @@
 ![LangChain](https://img.shields.io/badge/langchain-latest-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/parveenxkashyap/docs-mind-ai)
-[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](http)
+[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)]([http](https://docs-mind-ai.streamlit.app/))
 
 ## 🎯 Overview
 
@@ -15,7 +15,7 @@ DocsMind AI is a Streamlit web application that enables you to have intelligent 
 
 ## 🌐 Live Demo
 
-Try it out here: [DocsMind AI Live Demo](https)
+Try it out here: [DocsMind AI Live Demo](https://docs-mind-ai.streamlit.app/)
 
 ## ✨ Features
 
