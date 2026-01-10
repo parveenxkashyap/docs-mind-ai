@@ -27,7 +27,7 @@ from langchain_community.document_loaders import PyPDFLoader
 # Constants
 CHUNK_SIZE = 1000
 CHUNK_OVERLAP = 100
-EMBEDDING_MODEL = "models/gemini-embedding-exp-03-07"
+EMBEDDING_MODEL = "text-embedding-gecko-001"
 RETRIEVER_K = 4
 DEFAULT_SYSTEM_MESSAGE = """
 You are Document RAG Assistant 📄🤖. 
